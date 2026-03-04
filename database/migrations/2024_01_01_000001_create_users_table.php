@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_kelompok');           // Nama tampilan kelompok
+            $table->string('username')->unique();       // Username untuk login
+            $table->string('password');                 // Password (hashed)
+            $table->enum('role', ['kelompok', 'admin'])->default('kelompok');
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
+    }
+};
