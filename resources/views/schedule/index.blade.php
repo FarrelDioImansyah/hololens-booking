@@ -20,10 +20,11 @@
             <label class="fw-semibold mb-0">Pilih Tanggal:</label>
             <input type="date" name="tanggal" value="{{ $tanggal }}"
                    min="{{ \Carbon\Carbon::today()->toDateString() }}"
-                   class="form-control w-auto">
+                   class="form-control w-auto"
+                   onchange="this.form.submit()">
             <button type="submit" class="btn btn-primary btn-sm">
                 <i class="bi bi-search me-1"></i>Tampilkan
-            </button>
+            </button>   
             <a href="{{ route('schedule.index') }}" class="btn btn-outline-secondary btn-sm">Hari Ini</a>
             <span class="ms-auto text-muted" style="font-size:14px;">
                 <i class="bi bi-calendar3 me-1"></i>
@@ -58,8 +59,7 @@
                 <tbody>
                     @foreach($slots as $jam)
                     <tr>
-                        <td class="slot-time align-middle">{{ $jam }}</td>
-
+                    <td class="slot-time align-middle">{{ $jam }}</td>
                         @foreach($hololensList as $hl)
                             @php
                                 // Cari booking untuk slot ini
@@ -73,6 +73,7 @@
                                     {{-- Slot sudah diisi orang lain --}}
                                     <button class="slot-btn slot-taken" disabled>
                                         <i class="bi bi-lock-fill me-1"></i>{{ $booking->user->nama_kelompok }}
+                                        <small class="d-block" style="font-size:10px;opacity:0.8;">{{ $jam }} - {{ sprintf('%02d:00', intval($jam) + 1) }}</small>
                                     </button>
                                 @elseif($isMineBooking)
                                     {{-- Slot milik saya --}}

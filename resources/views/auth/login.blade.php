@@ -25,7 +25,6 @@
         }
         .form-control:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
         .btn-login { background: linear-gradient(135deg, #3b82f6, #1d4ed8); border: none; padding: 12px; font-weight: 600; }
-        .info-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 12px 16px; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -64,12 +63,7 @@
         </button>
     </form>
 
-    <div class="info-box mt-4">
-        <strong><i class="bi bi-info-circle me-1"></i>Akun Default:</strong><br>
-        Kelompok: <code>kelompok1</code> s/d <code>kelompok8</code><br>
-        Password = username (misal: <code>kelompok1</code>)<br>
-        Admin: <code>admin</code> / <code>admin123</code>
-    </div>
+    
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
