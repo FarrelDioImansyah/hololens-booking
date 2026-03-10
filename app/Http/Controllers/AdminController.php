@@ -130,4 +130,25 @@ class AdminController extends Controller
 
         return back()->with('success', 'Semua jam penggunaan berhasil direset.');
     }
+    public function setLimitHarian(Request $request, $userId)
+{
+    $request->validate([
+        'max_jam_harian' => 'required|integer|min:1|max:20',
+    ]);
+
+    $senin = Carbon::now()->startOfWeek(Carbon::MONDAY)->toDateString();
+
+    // Update semua record yang ada
+    UsageLimit::where('user_id', $userId)
+        ->update(['max_jam_harian' => $request->max_jam_harian]);
+
+    // Pastikan minggu ini juga ada recordnya
+    UsageLimit::firstOrCreate(
+        ['user_id' => $userId, 'minggu_mulai' => $senin],
+        ['max_jam_harian' => $request->max_jam_harian, 'max_jam' => 20]
+    );
+
+    return back()->with('success', 'Limit harian berhasil diperbarui.');
+
+}
 }

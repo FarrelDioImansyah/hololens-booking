@@ -50,4 +50,5 @@ Route::middleware(['auth.custom', 'admin'])->prefix('admin')->name('admin.')->gr
 });
 Route::get('/profile/ganti-password', [ProfileController::class, 'showGantiPassword'])->name('profile.ganti-password');
 Route::post('/profile/ganti-password', [ProfileController::class, 'gantiPassword'])->name('profile.ganti-password.post');
+Route::post('/admin/users/{id}/limit-harian', [AdminController::class, 'setLimitHarian'])->name('admin.users.limit.harian');
 Route::post('/ai/chat', [AiController::class, 'chat'])->name('ai.chat');

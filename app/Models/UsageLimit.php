@@ -11,6 +11,7 @@ class UsageLimit extends Model
         'user_id',
         'minggu_mulai',
         'max_jam',
+        'max_jam_harian',
         'jam_terpakai',
     ];
 

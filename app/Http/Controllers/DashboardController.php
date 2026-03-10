@@ -37,7 +37,7 @@ class DashboardController extends Controller
             ->where('user_id', $user->id)
             ->where('tanggal', Carbon::today()->toDateString())
             ->count();
-
-        return view('dashboard.index', compact('user', 'limit', 'bookingMingguIni', 'bookingMendatang', 'bookingHariIni'));
+            $maxHarian = $limit->max_jam_harian ?? 5;
+        return view('dashboard.index', compact('user', 'limit', 'bookingMingguIni', 'bookingMendatang', 'bookingHariIni','maxHarian' ));
     }
 }

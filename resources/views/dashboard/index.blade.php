@@ -48,8 +48,8 @@
         <div class="card stat-card h-100" style="border-left-color:#ef4444">
             <div class="card-body">
                 <div class="text-muted mb-1" style="font-size:13px;">Sisa Jam Hari Ini</div>
-                <div class="stat-number text-danger">{{ 5 - $bookingHariIni }}</div>
-                <div class="text-muted" style="font-size:12px;">dari 5 jam (maks/hari)</div>
+                <div class="stat-number text-danger">{{ $maxHarian - $bookingHariIni }}</div>
+                <div class="text-muted" style="font-size:12px;">dari {{ $maxHarian }} jam (maks/hari)</div>
             </div>
         </div>
     </div>

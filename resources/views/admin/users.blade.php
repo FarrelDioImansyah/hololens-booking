@@ -25,7 +25,8 @@
                         <th>Jam Terpakai</th>
                         <th>Batas Jam</th>
                         <th>Kuota Tersisa</th>
-                        <th>Atur Limit</th>
+                        <th>Atur Limit Mingguan</th>
+                        <th>Atur Limit Harian</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                         $limit = $u->usageLimits->first();
                         $terpakai = $limit?->jam_terpakai ?? 0;
                         $maxJam   = $limit?->max_jam ?? 20;
+                        $maxHarian = $limit?->max_jam_harian ?? 5;
                         $sisa     = max(0, $maxJam - $terpakai);
                         $persen   = $maxJam > 0 ? min(100, round($terpakai/$maxJam*100)) : 0;
                     @endphp
@@ -55,8 +57,16 @@
                             <form action="{{ route('admin.users.limit', $u->id) }}" method="POST" class="d-flex gap-2">
                                 @csrf
                                 <input type="number" name="max_jam" value="{{ $maxJam }}" min="1" max="100"
-                                       class="form-control form-control-sm" style="width:80px;">
+                                       class="form-control form-control-sm" style="width:80px;" title="Limit mingguan">
                                 <button type="submit" class="btn btn-sm btn-outline-primary">Simpan</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ route('admin.users.limit.harian', $u->id) }}" method="POST" class="d-flex gap-2">
+                                @csrf
+                                <input type="number" name="max_jam_harian" value="{{ $maxHarian }}" min="1" max="13"
+                                       class="form-control form-control-sm" style="width:80px;" title="Limit harian (maks 13 jam)">
+                                <button type="submit" class="btn btn-sm btn-outline-warning">Simpan</button>
                             </form>
                         </td>
                     </tr>

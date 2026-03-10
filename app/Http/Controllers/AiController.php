@@ -64,7 +64,7 @@ class AiController extends Controller
             }
         }
         $slotTersediaStr = implode(', ', array_slice($slotTersedia, 0, 10));
-        $sisaHariIni = 5 - $bookingHariIni;
+        $sisaHariIni = ($limit->max_jam_harian ?? 5) - $bookingHariIni;
         // ── System prompt ─────────────────────────────────
         $systemPrompt = <<<EOT
 Kamu adalah asisten AI untuk sistem HoloLens Booking di laboratorium. Nama kamu adalah "HoloBot".
@@ -72,7 +72,7 @@ Kamu adalah asisten AI untuk sistem HoloLens Booking di laboratorium. Nama kamu 
 DATA USER SAAT INI:
 - Nama: {$user->nama_kelompok}
 - Sisa kuota minggu ini: {$limit->sisaJam()} jam (dari {$limit->max_jam} jam)
-- Booking hari ini: {$bookingHariIni} jam (maks 5 jam/hari)
+- Booking hari ini: {$bookingHariIni} jam (maks {$limit->max_jam_harian} jam/hari)
 - Sisa jam hari ini: {$sisaHariIni} jam
 - Tanggal hari ini: {$today}
 - Besok: {$tomorrow}
@@ -166,7 +166,7 @@ EOT;
             return response()->json(['reply' => 'Maaf, kuota mingguan kamu sudah habis! Tunggu reset hari Senin.']);
         }
 
-        if ($bookingHariIni >= 5) {
+        if ($bookingHariIni >= $limit->max_jam_harian) {
             return response()->json(['reply' => 'Maaf, kamu sudah mencapai batas 5 jam hari ini!']);
         }
 
