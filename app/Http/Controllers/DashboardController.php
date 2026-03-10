@@ -32,6 +32,12 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard.index', compact('user', 'limit', 'bookingMingguIni', 'bookingMendatang'));
+        // Booking hari ini
+        $bookingHariIni = Booking::aktif()
+            ->where('user_id', $user->id)
+            ->where('tanggal', Carbon::today()->toDateString())
+            ->count();
+
+        return view('dashboard.index', compact('user', 'limit', 'bookingMingguIni', 'bookingMendatang', 'bookingHariIni'));
     }
 }

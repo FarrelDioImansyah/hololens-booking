@@ -87,8 +87,27 @@ class BookingController extends Controller
                 if ($slotTerisi) {
                     throw new \Exception('Slot ini sudah dibooking kelompok lain. Pilih slot lain.');
                 }
+                 // ── CEK 2: Tidak boleh booking 2 HoloLens di jam yang sama ──
+                $doubleHololens = Booking::aktif()
+                    ->where('user_id', $user->id)
+                    ->where('tanggal', $request->tanggal)
+                    ->where('jam_mulai', $jamMulai)
+                    ->exists();
 
-                // ── CEK 2: Apakah kelompok masih punya kuota? ──
+                if ($doubleHololens) {
+                    throw new \Exception('Kamu sudah booking HoloLens lain di jam yang sama!');
+                }
+
+                // ── CEK 3: Maksimal 5 jam per hari ────────────
+                $bookingHariIni = Booking::aktif()
+                    ->where('user_id', $user->id)
+                    ->where('tanggal', $request->tanggal)
+                    ->count();
+
+                if ($bookingHariIni >= 5) {
+                    throw new \Exception('Batas maksimal 5 jam per hari sudah tercapai!');
+                }
+                // ── CEK 4: Apakah kelompok masih punya kuota? ──
                 $limit = $user->getOrCreateWeeklyLimit();
 
                 if (!$limit->masihBisaBooking()) {

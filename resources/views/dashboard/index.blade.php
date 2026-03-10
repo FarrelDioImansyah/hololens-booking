@@ -45,11 +45,11 @@
         </div>
     </div>
     <div class="col-sm-6 col-md-3">
-        <div class="card stat-card h-100" style="border-left-color:#8b5cf6">
+        <div class="card stat-card h-100" style="border-left-color:#ef4444">
             <div class="card-body">
-                <div class="text-muted mb-1" style="font-size:13px;">Booking Mendatang</div>
-                <div class="stat-number text-purple" style="color:#8b5cf6">{{ $bookingMendatang->count() }}</div>
-                <div class="text-muted" style="font-size:12px;">sesi terjadwal</div>
+                <div class="text-muted mb-1" style="font-size:13px;">Sisa Jam Hari Ini</div>
+                <div class="stat-number text-danger">{{ 5 - $bookingHariIni }}</div>
+                <div class="text-muted" style="font-size:12px;">dari 5 jam (maks/hari)</div>
             </div>
         </div>
     </div>

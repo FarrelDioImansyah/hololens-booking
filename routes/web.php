@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AiController;
 
 // ── Halaman utama → redirect ke login ─────────────────────
 Route::get('/', fn() => redirect()->route('login'));
@@ -25,6 +26,7 @@ Route::middleware('auth.custom')->group(function () {
     Route::get('/jadwal', [BookingController::class, 'index'])->name('schedule.index');
     Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
     Route::delete('/booking/{id}', [BookingController::class, 'destroy'])->name('booking.destroy');
+    
 });
 
 // ── Halaman Admin (butuh login + role admin) ──────────────
@@ -48,3 +50,4 @@ Route::middleware(['auth.custom', 'admin'])->prefix('admin')->name('admin.')->gr
 });
 Route::get('/profile/ganti-password', [ProfileController::class, 'showGantiPassword'])->name('profile.ganti-password');
 Route::post('/profile/ganti-password', [ProfileController::class, 'gantiPassword'])->name('profile.ganti-password.post');
+Route::post('/ai/chat', [AiController::class, 'chat'])->name('ai.chat');
